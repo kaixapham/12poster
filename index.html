@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>KAIXA.WORK — 012 ZODIACS</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+  :root{--bg:#0a0a0a;--surface:#111;--border:#222;--border-bright:#333;--text-primary:#e8e8e8;--text-secondary:#555;--text-muted:#333;--accent:#e8e800}
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{background:var(--bg);color:var(--text-primary);font-family:'IBM Plex Mono',monospace;font-size:11px;line-height:1.6;overflow-x:hidden;cursor:crosshair}
+  header{position:fixed;top:0;left:0;right:0;z-index:100;border-bottom:1px solid var(--border);background:rgba(10,10,10,0.92);backdrop-filter:blur(12px)}
+  .header-inner{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;padding:0 40px;height:52px}
+  .header-left{display:flex;align-items:center;gap:24px}
+  .logo-placeholder{width:80px;height:28px;border:1px solid var(--border-bright);display:flex;align-items:center;justify-content:center;font-size:9px;color:var(--text-muted);letter-spacing:.1em;text-transform:uppercase;transition:border-color .2s,color .2s}
+  .logo-placeholder:hover{border-color:var(--accent);color:var(--accent)}
+  .header-center{font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(--text-secondary);text-align:center}
+  .header-right{display:flex;align-items:center;justify-content:flex-end;gap:28px}
+  .header-right a{font-size:9px;letter-spacing:.15em;text-transform:uppercase;color:var(--text-secondary);text-decoration:none;transition:color .2s;cursor:crosshair}
+  .header-right a:hover{color:var(--text-primary)}
+  .status-bar{display:flex;align-items:center;gap:8px;font-size:9px;color:var(--text-secondary)}
+  .status-dot{width:5px;height:5px;border-radius:50%;background:var(--accent);animation:pulse 2s infinite}
+  @keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
+  .ticker{border-bottom:1px solid var(--border);overflow:hidden;height:36px;display:flex;align-items:center;margin-top:52px}
+  .ticker-inner{display:flex;animation:ticker 30s linear infinite;white-space:nowrap}
+  .ticker-item{font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(--text-muted);padding:0 40px;display:flex;align-items:center;gap:16px}
+  .ticker-item::after{content:'×';color:var(--border-bright)}
+  .ticker-item.hl{color:var(--accent)}
+  @keyframes ticker{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+  .hero{padding:0 40px;min-height:100vh;display:flex;flex-direction:column;justify-content:flex-end;position:relative;z-index:1}
+  .hero-content{padding-bottom:60px}
+  .hero-meta{display:flex;align-items:center;gap:16px;margin-bottom:24px}
+  .hero-tag{font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(--text-secondary);border:1px solid var(--border);padding:4px 10px}
+  .hero-index{font-size:9px;color:var(--text-muted);letter-spacing:.1em}
+  .hero-title{font-family:'Space Mono',monospace;font-size:clamp(48px,8vw,120px);font-weight:700;line-height:.9;letter-spacing:-.02em;margin-bottom:32px;overflow:hidden}
+  .hero-title span{display:block;transform:translateY(100%);animation:slideUp .8s cubic-bezier(.16,1,.3,1) forwards}
+  .hero-title span:nth-child(2){animation-delay:.1s}
+  .hero-title span:nth-child(3){animation-delay:.2s}
+  @keyframes slideUp{to{transform:translateY(0)}}
+  .hero-title .accent{color:var(--accent)}
+  .hero-desc{display:grid;grid-template-columns:1fr 1fr 1fr;gap:40px;max-width:800px;padding-top:32px;border-top:1px solid var(--border)}
+  .hero-desc-item{font-size:10px;color:var(--text-secondary);line-height:1.8}
+  .hero-desc-item strong{display:block;color:var(--text-primary);font-weight:400;margin-bottom:4px;font-size:9px;letter-spacing:.1em;text-transform:uppercase}
+  .scroll-hint{position:absolute;right:40px;bottom:60px;writing-mode:vertical-rl;font-size:9px;letter-spacing:.2em;color:var(--text-muted);text-transform:uppercase;display:flex;align-items:center;gap:12px}
+  .scroll-hint::after{content:'';width:1px;height:60px;background:linear-gradient(to bottom,var(--text-muted),transparent);display:block}
+  section{position:relative;z-index:1;padding:0 40px}
+  .section-header{display:grid;grid-template-columns:auto 1fr auto;align-items:baseline;gap:20px;padding:40px 0 32px;border-top:1px solid var(--border)}
+  .section-num{font-size:9px;color:var(--text-muted);letter-spacing:.1em;font-style:italic}
+  .section-title{font-family:'Space Mono',monospace;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--text-secondary)}
+  .section-count{font-size:9px;color:var(--text-muted);letter-spacing:.1em}
+  .poster-grid{display:grid;grid-template-columns:repeat(12,1fr);gap:2px;padding-bottom:80px}
+  .poster-item{position:relative;overflow:hidden;cursor:crosshair;background:var(--surface)}
+  .poster-item:nth-child(1){grid-column:span 5;grid-row:span 2}
+  .poster-item:nth-child(2){grid-column:span 4}
+  .poster-item:nth-child(3){grid-column:span 3}
+  .poster-item:nth-child(4){grid-column:span 4}
+  .poster-item:nth-child(5){grid-column:span 3}
+  .poster-item:nth-child(6){grid-column:span 4;grid-row:span 2}
+  .poster-item:nth-child(7){grid-column:span 3}
+  .poster-item:nth-child(8){grid-column:span 5}
+  .poster-img{width:100%;height:100%;min-height:320px;object-fit:cover;display:block;transition:transform .6s cubic-bezier(.16,1,.3,1),filter .4s ease;filter:saturate(.85)}
+  .poster-item:hover .poster-img{transform:scale(1.03);filter:saturate(1.1)}
+  .poster-overlay{position:absolute;inset:0;background:rgba(0,0,0,0);transition:background .3s ease;display:flex;flex-direction:column;justify-content:flex-end;padding:16px}
+  .poster-item:hover .poster-overlay{background:rgba(0,0,0,.65)}
+  .poster-info{transform:translateY(8px);opacity:0;transition:transform .3s ease,opacity .3s ease}
+  .poster-item:hover .poster-info{transform:translateY(0);opacity:1}
+  .poster-id{font-size:8px;color:var(--accent);letter-spacing:.2em;margin-bottom:4px}
+  .poster-name{font-family:'Space Mono',monospace;font-size:13px;font-weight:700;letter-spacing:.05em;line-height:1.2}
+  .poster-sub{font-size:9px;color:rgba(232,232,232,.5);margin-top:4px;letter-spacing:.1em}
+  .poster-corner{position:absolute;top:12px;right:12px;width:20px;height:20px;border-top:1px solid rgba(255,255,255,.3);border-right:1px solid rgba(255,255,255,.3);opacity:0;transition:opacity .3s ease}
+  .poster-item:hover .poster-corner{opacity:1}
+  .end-card{cursor:default}
+  .end-overlay{background:rgba(0,0,0,.5)!important}
+  .end-info{opacity:1!important;transform:none!important}
+  .lightbox{position:fixed;inset:0;z-index:999;background:rgba(0,0,0,0);display:flex;align-items:center;justify-content:center;pointer-events:none;transition:background .4s ease}
+  .lightbox.active{background:rgba(0,0,0,.96);pointer-events:all;cursor:crosshair}
+  .lightbox-img{max-height:90vh;max-width:80vw;object-fit:contain;transform:scale(.9);opacity:0;transition:transform .4s cubic-bezier(.16,1,.3,1),opacity .4s ease}
+  .lightbox.active .lightbox-img{transform:scale(1);opacity:1}
+  .lightbox-close{position:fixed;top:24px;right:40px;font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(--text-secondary);cursor:crosshair;font-family:'IBM Plex Mono',monospace;z-index:1000;opacity:0;pointer-events:none;transition:opacity .3s ease,color .2s ease}
+  .lightbox.active .lightbox-close{opacity:1;pointer-events:all}
+  .lightbox-close:hover{color:var(--text-primary)}
+  .lightbox-meta{position:fixed;bottom:40px;left:40px;opacity:0;pointer-events:none;transition:opacity .3s ease}
+  .lightbox.active .lightbox-meta{opacity:1}
+  .lightbox-meta .poster-name{font-size:16px;font-family:'Space Mono',monospace}
+  .lightbox-nav{position:fixed;bottom:40px;right:40px;display:flex;gap:16px;opacity:0;pointer-events:none;transition:opacity .3s ease}
+  .lightbox.active .lightbox-nav{opacity:1;pointer-events:all}
+  .lightbox-nav button{background:none;border:1px solid var(--border-bright);color:var(--text-secondary);font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:.15em;padding:8px 16px;cursor:crosshair;text-transform:uppercase;transition:all .2s}
+  .lightbox-nav button:hover{border-color:var(--text-primary);color:var(--text-primary)}
+  .about-strip{border-top:1px solid var(--border);padding:60px 0;display:grid;grid-template-columns:3fr 2fr 2fr;gap:80px}
+  .about-strip h2{font-family:'Space Mono',monospace;font-size:9px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--text-secondary);margin-bottom:16px}
+  .about-strip p{font-size:10px;color:var(--text-secondary);line-height:2;max-width:380px}
+  .about-links{display:flex;flex-direction:column;gap:8px}
+  .about-link{font-size:10px;color:var(--text-secondary);text-decoration:none;display:flex;align-items:center;gap:12px;padding:4px 0;border-bottom:1px solid transparent;transition:border-color .2s,color .2s}
+  .about-link:hover{color:var(--text-primary);border-color:var(--border)}
+  .about-link::before{content:'→';font-size:9px;color:var(--text-muted)}
+  footer{position:relative;z-index:1;padding:32px 40px;border-top:1px solid var(--border);display:grid;grid-template-columns:1fr auto 1fr;align-items:center}
+  .footer-left{font-size:9px;color:var(--text-muted);letter-spacing:.1em;line-height:2}
+  .footer-center{font-size:9px;color:var(--text-muted);letter-spacing:.1em;text-align:center}
+  .footer-right{font-size:9px;color:var(--text-muted);letter-spacing:.1em;text-align:right}
+  ::selection{background:var(--accent);color:var(--bg)}
+  @media(max-width:900px){.poster-grid{grid-template-columns:repeat(2,1fr)}.poster-item{grid-column:span 1!important;grid-row:span 1!important}.poster-img{min-height:240px}.hero-desc{grid-template-columns:1fr;gap:20px}.about-strip{grid-template-columns:1fr;gap:40px}footer{grid-template-columns:1fr;gap:8px}.footer-center,.footer-right{text-align:left}.header-center{display:none}}
+</style>
+</head>
+<body>
+<header>
+  <div class="header-inner">
+    <div class="header-left">
+      <div class="logo-placeholder">LOGO</div>
+      <div class="status-bar"><span class="status-dot"></span><span style="font-size:9px;color:var(--text-muted);letter-spacing:.1em;">AVAILABLE</span></div>
+    </div>
+    <div class="header-center">012 Zodiacs · [Vietnam] 十二生肖</div>
+    <div class="header-right">
+      <a href="#work">Work</a>
+      <a href="#about">About</a>
+      <a href="mailto:kaixadesign@gmail.com">Contact</a>
+    </div>
+  </div>
+</header>
+<div class="ticker">
+  <div class="ticker-inner">
+    <span class="ticker-item">MAR. DESIGN CHALLENGE</span><span class="ticker-item hl">PSTS-N°®</span><span class="ticker-item">EXPLORATION.ZIP</span><span class="ticker-item">012 ZODIACS · 十二生肖</span><span class="ticker-item">KAIXA.WORK</span><span class="ticker-item">©2026</span><span class="ticker-item hl">GAP_DS · 勇 · LABS</span>
+    <span class="ticker-item">MAR. DESIGN CHALLENGE</span><span class="ticker-item hl">PSTS-N°®</span><span class="ticker-item">EXPLORATION.ZIP</span><span class="ticker-item">012 ZODIACS · 十二生肖</span><span class="ticker-item">KAIXA.WORK</span><span class="ticker-item">©2026</span><span class="ticker-item hl">GAP_DS · 勇 · LABS</span>
+  </div>
+</div>
+<div class="hero">
+  <div class="hero-content">
+    <div class="hero-meta"><span class="hero-tag">Poster Series</span><span class="hero-tag">2026</span><span class="hero-index">— 008 / 012</span></div>
+    <h1 class="hero-title"><span>012</span><span>ZODIACS</span><span class="accent">十二生肖</span></h1>
+    <div class="hero-desc">
+      <div class="hero-desc-item"><strong>Series</strong>Mar. Design Challenge — PSTS-N°®</div>
+      <div class="hero-desc-item"><strong>Medium</strong>Digital Poster · Mixed Media</div>
+      <div class="hero-desc-item"><strong>By</strong>kaixa/666 · Exploration.zip</div>
+    </div>
+  </div>
+  <div class="scroll-hint">Scroll</div>
+</div>
+<section id="work">
+  <div class="section-header"><span class="section-num">§ 01</span><span class="section-title">Selected Works</span><span class="section-count">008 posters</span></div>
+  <div class="poster-grid">
+    <div class="poster-item" data-idx="0"><img class="poster-img" src="poster_01.png" alt="" loading="lazy"><div class="poster-overlay"><div class="poster-info"><div class="poster-id">POSTER / 05 · 辰</div><div class="poster-name">CÁ CHÉP HOÁ RỒNG</div><div class="poster-sub">TÝ · 鲤鱼 · Thin</div></div></div><div class="poster-corner"></div></div>
+    <div class="poster-item" data-idx="1"><img class="poster-img" src="poster_02.png" alt="" loading="lazy"><div class="poster-overlay"><div class="poster-info"><div class="poster-id">POSTER / 07 · 午</div><div class="poster-name">HỨA THỀ HẸN</div><div class="poster-sub">NGỌ · 信 · 钱</div></div></div><div class="poster-corner"></div></div>
+    <div class="poster-item" data-idx="2"><img class="poster-img" src="poster_03.png" alt="" loading="lazy"><div class="poster-overlay"><div class="poster-info"><div class="poster-id">POSTER / 06 · 巳</div><div class="poster-name">MỀM NẮN RẮN</div><div class="poster-sub">TỴ · Rắn B/Vuông</div></div></div><div class="poster-corner"></div></div>
+    <div class="poster-item" data-idx="3"><img class="poster-img" src="poster_04.png" alt="" loading="lazy"><div class="poster-overlay"><div class="poster-info"><div class="poster-id">POSTER / 08 · 未</div><div class="poster-name">THE G.O.A.T</div><div class="poster-sub">MÙI · CR7 · RONALDO</div></div></div><div class="poster-corner"></div></div>
+    <div class="poster-item" data-idx="4"><img class="poster-img" src="poster_05.png" alt="" loading="lazy"><div class="poster-overlay"><div class="poster-info"><div class="poster-id">POSTER / 10 · 酉</div><div class="poster-name">NGỦ GÀ NGỦ GẬT</div><div class="poster-sub">DẬU · Gà Gật · ZZZ</div></div></div><div class="poster-corner"></div></div>
+    <div class="poster-item" data-idx="5"><img class="poster-img" src="poster_06.png" alt="" loading="lazy"><div class="poster-overlay"><div class="poster-info"><div class="poster-id">POSTER / 09 · 申</div><div class="poster-name">ACID WUKONG</div><div class="poster-sub">THÂN · TÔN NGÔ HÔNG</div></div></div><div class="poster-corner"></div></div>
+    <div class="poster-item" data-idx="6"><img class="poster-img" src="poster_07.png" alt="" loading="lazy"><div class="poster-overlay"><div class="poster-info"><div class="poster-id">POSTER / 12 · 亥</div><div class="poster-name">CHƯA LỚN LANH</div><div class="poster-sub">HỢI · /PIG/</div></div></div><div class="poster-corner"></div></div>
+    <div class="poster-item end-card"><img class="poster-img" src="poster_08.png" alt="" loading="lazy" style="filter:saturate(.7) brightness(.7)"><div class="poster-overlay end-overlay"><div class="poster-info end-info"><div class="poster-id">©2026 · KAIXA.WORK</div><div class="poster-name" style="font-size:11px">Thank you for<br>scrolling all<br>the way there</div><div class="poster-sub" style="margin-top:8px">An appreciate would mean<br>the world to me</div></div></div></div>
+  </div>
+</section>
+<section id="about">
+  <div class="about-strip">
+    <div><h2>About this series</h2><p>012 Zodiacs [Vietnam] 十二生肖 — A poster exploration series by kaixa/666 as part of the Mar. Design Challenge. Each piece maps a zodiac animal onto a personal concept, blending Vietnamese street culture, Chinese iconography, and digital noise.</p></div>
+    <div><h2>Contact</h2><div class="about-links"><a class="about-link" href="mailto:kaixadesign@gmail.com">kaixadesign@gmail.com</a><a class="about-link" href="#">kaixa.work</a><a class="about-link" href="#">MINGG Patreon</a><a class="about-link" href="#">Trong Motion</a></div></div>
+    <div><h2>Credits</h2><div class="about-links"><a class="about-link" href="#">PSTS-N°® // kaixa/666</a><a class="about-link" href="#">Exploration.zip</a><a class="about-link" href="#">GAP_DS · 勇 · [LABS]</a><a class="about-link" href="#">CLB MEN/MÉN C26</a></div></div>
+  </div>
+</section>
+<footer>
+  <div class="footer-left">KAIXA.WORK<br>©2026 ALL RIGHTS RESERVED</div>
+  <div class="footer-center">走正道<br>// 善</div>
+  <div class="footer-right">(W) KAIXA.WORK<br>(M) KAIXADESIGN@GMAIL.COM</div>
+</footer>
+<div class="lightbox" id="lightbox">
+  <img class="lightbox-img" id="lightboxImg" src="" alt="">
+  <span class="lightbox-close" id="lbClose">[ ESC / CLOSE ]</span>
+  <div class="lightbox-meta"><div class="poster-id" id="lightboxId"></div><div class="poster-name" id="lightboxName"></div></div>
+  <div class="lightbox-nav"><button id="prevBtn">← PREV</button><button id="nextBtn">NEXT →</button></div>
+</div>
+<script>
+  const posters=[{src:'poster_01.png',id:'POSTER / 05 · 辰',name:'CÁ CHÉP HOÁ RỒNG'},{src:'poster_02.png',id:'POSTER / 07 · 午',name:'HỨA THỀ HẸN'},{src:'poster_03.png',id:'POSTER / 06 · 巳',name:'MỀM NẮN RẮN'},{src:'poster_04.png',id:'POSTER / 08 · 未',name:'THE G.O.A.T'},{src:'poster_05.png',id:'POSTER / 10 · 酉',name:'NGỦ GÀ NGỦ GẬT'},{src:'poster_06.png',id:'POSTER / 09 · 申',name:'ACID WUKONG'},{src:'poster_07.png',id:'POSTER / 12 · 亥',name:'CHƯA LỚN LANH'}];
+  let cur=0;
+  function openLB(i){cur=i;document.getElementById('lightboxImg').src=posters[i].src;document.getElementById('lightboxId').textContent=posters[i].id;document.getElementById('lightboxName').textContent=posters[i].name;document.getElementById('lightbox').classList.add('active');document.body.style.overflow='hidden'}
+  function closeLB(){document.getElementById('lightbox').classList.remove('active');document.body.style.overflow=''}
+  document.getElementById('lightbox').addEventListener('click',e=>{if(e.target===document.getElementById('lightbox'))closeLB()});
+  document.getElementById('lbClose').addEventListener('click',closeLB);
+  document.getElementById('prevBtn').addEventListener('click',e=>{e.stopPropagation();cur=(cur-1+posters.length)%posters.length;openLB(cur)});
+  document.getElementById('nextBtn').addEventListener('click',e=>{e.stopPropagation();cur=(cur+1)%posters.length;openLB(cur)});
+  document.querySelectorAll('.poster-item[data-idx]').forEach(el=>el.addEventListener('click',()=>openLB(parseInt(el.dataset.idx))));
+  document.addEventListener('keydown',e=>{if(!document.getElementById('lightbox').classList.contains('active'))return;if(e.key==='Escape')closeLB();if(e.key==='ArrowRight'){cur=(cur+1)%posters.length;openLB(cur)}if(e.key==='ArrowLeft'){cur=(cur-1+posters.length)%posters.length;openLB(cur)}});
+  document.querySelectorAll('.poster-item').forEach((el,i)=>{el.style.opacity='0';el.style.transform='translateY(16px)';el.style.transition='opacity .5s ease,transform .5s ease';setTimeout(()=>{el.style.opacity='1';el.style.transform='translateY(0)'},150+i*80)});
+</script>
+</body>
+</html>
